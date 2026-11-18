@@ -1,30 +1,187 @@
-# 🎫 Containerized Help Desk & Issue Tracking System
+# 🎓 University Help Desk & Issue Tracking System
 
-A full-stack help desk application containerized with Docker, featuring a Kanban-style ticket board.
+> A full-stack containerized web application built to learn and demonstrate **Docker** and **Docker Compose** in a real-world scenario.
 
-## Tech Stack
-- **Frontend:** React + Vite (Nginx)
-- **Backend:** Node.js + Express
-- **Database:** PostgreSQL
-- **Containerization:** Docker + Docker Compose
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![Nginx](https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white)
 
-## Features
-- Submit support tickets with priority levels
-- Kanban board (Open → In Progress → Resolved)
-- Real-time status updates
-- Multi-container architecture with Docker Compose
+---
 
-## Quick Start
+## 📌 About This Project
+
+This project was built as a **hands-on learning project for Docker and containerization**. Rather than following a simple tutorial, I built a real-world university help desk system and containerized it from scratch using Docker Compose.
+
+The application allows:
+- 👨‍🎓 **Students** to report technical issues (Wi-Fi, hardware, software, etc.)
+- 🛠️ **Administrators** to receive, prioritize, and resolve tickets
+- 📊 **Both** to track ticket status in real time
+
+---
+
+## 🐳 What I Learned About Docker
+
+This project was specifically designed to understand the following Docker concepts:
+
+### 1. Dockerfile
+Each service has its own `Dockerfile` that defines how to build that service's container image.
+
+- The **backend** Dockerfile uses `node:20-alpine` as a lightweight base image
+- The **frontend** Dockerfile uses a **multi-stage build** — first builds the React app with Node, then serves it with Nginx (production-ready, smaller final image)
+
+### 2. Docker Compose
+Instead of running 3 separate containers manually, `docker-compose.yml` orchestrates all services together with **one command**:
+
 ```bash
 docker-compose up --build
 ```
-Open http://localhost:3000
 
-## Architecture
+This single command:
+- Pulls the required images
+- Builds the custom images
+- Creates a shared network between containers
+- Starts all services in the correct order
+
+### 3. Multi-Container Architecture
+The project runs **3 containers** that communicate with each other over Docker's internal network:
+
 ```
-┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   Frontend  │───▶│   Backend   │───▶│  PostgreSQL  │
-│  React/Nginx│    │  Node/Express│    │   Database  │
-│  Port: 3000 │    │  Port: 5000 │    │  Port: 5432 │
-└─────────────┘    └─────────────┘    └─────────────┘
+┌─────────────────────────────────────────────────────────┐
+│                     Docker Network                       │
+│                                                          │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐  │
+│  │  Frontend   │───▶│   Backend   │───▶│  PostgreSQL │  │
+│  │ React+Nginx │    │  Node.js +  │    │  Database   │  │
+│  │  Port 3000  │    │  Express    │    │  Port 5432  │  │
+│  └─────────────┘    │  Port 5000  │    └─────────────┘  │
+│                     └─────────────┘                      │
+└─────────────────────────────────────────────────────────┘
 ```
+
+### 4. Service Dependencies
+Docker Compose `depends_on` with health checks ensures:
+- The **database starts first** and is fully ready
+- The **backend starts only after** the database is healthy
+- The **frontend starts last**
+
+This prevents connection errors on startup.
+
+### 5. Volumes (Data Persistence)
+PostgreSQL uses a **named Docker volume** (`postgres_data`) so ticket data is saved permanently — even if the container is stopped or deleted, the data survives.
+
+```yaml
+volumes:
+  postgres_data:
+```
+
+### 6. Environment Variables
+Sensitive configuration like database credentials are passed as **environment variables** in `docker-compose.yml` — keeping them out of the application code.
+
+### 7. .dockerignore
+Each service has a `.dockerignore` file to exclude `node_modules` and other unnecessary files from the Docker build context — making builds significantly faster.
+
+---
+
+## 🏗️ Project Structure
+
+```
+university-helpdesk/
+├── backend/
+│   ├── src/
+│   │   ├── routes/
+│   │   │   └── tickets.js       # REST API endpoints
+│   │   ├── db.js                # PostgreSQL connection
+│   │   └── index.js             # Express server
+│   ├── Dockerfile               # Backend container definition
+│   ├── .dockerignore
+│   └── package.json
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── StudentPortal.jsx    # Student ticket submission & tracking
+│   │   │   └── AdminDashboard.jsx   # Admin ticket management
+│   │   ├── App.jsx
+│   │   └── App.css
+│   ├── Dockerfile               # Multi-stage build (Node → Nginx)
+│   ├── .dockerignore
+│   └── package.json
+│
+├── docker-compose.yml           # Orchestrates all 3 containers
+├── init.sql                     # Database schema & seed data
+└── README.md
+```
+
+---
+
+## ✨ Features
+
+### Student Portal
+- Submit support tickets with title, category and description
+- Choose issue category: Wi-Fi, Hardware, Software, Email, Printer
+- Set initial priority: Low, Medium, High
+- Track ticket status by name in real time
+
+### Admin Dashboard
+- View all tickets in one place
+- Search tickets by title or student name
+- Filter by status: Open, In Progress, Resolved
+- Update ticket status and priority with dropdowns
+- Delete resolved tickets
+- Live stats: total, open, in-progress, resolved
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running
+- That's it — no Node.js or PostgreSQL needed locally!
+
+### Run the Project
+
+```bash
+# Clone the repository
+git clone https://github.com/YOUR_USERNAME/Containerized-Help-Desk---Issue-Tracking.git
+cd Containerized-Help-Desk---Issue-Tracking
+
+# Start all containers
+docker-compose up --build
+```
+
+Then open your browser:
+
+| Service | URL |
+|---------|-----|
+| 🌐 Web App | http://localhost:3000 |
+| 🔌 API | http://localhost:5000/api/tickets |
+
+### Stop the Project
+
+```bash
+# Stop containers
+docker-compose down
+
+# Stop and delete all data
+docker-compose down -v
+```
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology | Purpose |
+|-------|-----------|---------|
+| Frontend | React + Vite | Student & Admin UI |
+| Web Server | Nginx | Serves the React build in production |
+| Backend | Node.js + Express | REST API |
+| Database | PostgreSQL | Persistent ticket storage |
+| Containerization | Docker + Docker Compose | Multi-container orchestration |
+
+---
+
+## 📡 API Endpoints
+
+| Method
