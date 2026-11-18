@@ -134,41 +134,6 @@ university-helpdesk/
 
 ---
 
-## 🚀 Getting Started
-
-### Prerequisites
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running
-- That's it — no Node.js or PostgreSQL needed locally!
-
-### Run the Project
-
-```bash
-# Clone the repository
-git clone https://github.com/YOUR_USERNAME/Containerized-Help-Desk---Issue-Tracking.git
-cd Containerized-Help-Desk---Issue-Tracking
-
-# Start all containers
-docker-compose up --build
-```
-
-Then open your browser:
-
-| Service | URL |
-|---------|-----|
-| 🌐 Web App | http://localhost:3000 |
-| 🔌 API | http://localhost:5000/api/tickets |
-
-### Stop the Project
-
-```bash
-# Stop containers
-docker-compose down
-
-# Stop and delete all data
-docker-compose down -v
-```
-
----
 
 ## 🛠️ Tech Stack
 
