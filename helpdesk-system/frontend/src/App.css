@@ -1,0 +1,529 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+/* NAVBAR */
+.navbar {
+  background: linear-gradient(135deg, #1e3a5f, #2563eb);
+  padding: 0 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+}
+
+.nav-brand {
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-icon {
+  font-size: 1.5rem;
+}
+
+.nav-tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.nav-btn {
+  padding: 8px 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.nav-btn.active {
+  background: white;
+  color: #2563eb;
+  border-color: white;
+}
+
+/* STUDENT PORTAL */
+.portal-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 20px;
+}
+
+.portal-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.portal-header h1 {
+  font-size: 2rem;
+  color: #1e293b;
+}
+
+.portal-header p {
+  color: #64748b;
+  margin-top: 8px;
+}
+
+.portal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+/* CARDS */
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.card h2 {
+  font-size: 1.1rem;
+  color: #1e293b;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+/* FORM */
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 6px;
+  margin-top: 14px;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #1e293b;
+  transition: border 0.2s;
+  background: #f8fafc;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #2563eb;
+  background: white;
+}
+
+textarea {
+  height: 90px;
+  resize: vertical;
+}
+
+.priority-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.priority-chip {
+  flex: 1;
+  padding: 8px;
+  border: 2px solid #e2e8f0;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748b;
+  transition: all 0.2s;
+}
+
+.priority-chip:hover {
+  border-color: #94a3b8;
+}
+
+.selected-low {
+  border-color: #10b981 !important;
+  background: #ecfdf5 !important;
+  color: #10b981 !important;
+}
+
+.selected-medium {
+  border-color: #f59e0b !important;
+  background: #fffbeb !important;
+  color: #f59e0b !important;
+}
+
+.selected-high {
+  border-color: #ef4444 !important;
+  background: #fef2f2 !important;
+  color: #ef4444 !important;
+}
+
+.submit-btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.submit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+}
+
+.success-banner {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+/* TRACKING */
+.track-card {
+  border-left: 4px solid #6366f1;
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 14px;
+  margin-top: 12px;
+}
+
+.track-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.track-title {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 14px;
+}
+
+.status-badge {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.track-meta {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.track-desc {
+  font-size: 13px;
+  color: #64748b;
+  margin-top: 6px;
+}
+
+.no-tickets {
+  color: #94a3b8;
+  font-size: 13px;
+  padding: 16px 0;
+  text-align: center;
+}
+
+/* STATS */
+.stats-box {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.stats-box h3 {
+  font-size: 14px;
+  color: #475569;
+  margin-bottom: 14px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.stat {
+  background: white;
+  border-radius: 10px;
+  padding: 14px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.stat-num {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #94a3b8;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* ADMIN */
+.admin-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 20px;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.admin-header h1 {
+  font-size: 1.8rem;
+  color: #1e293b;
+}
+
+.admin-header p {
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.admin-stats {
+  display: flex;
+  gap: 12px;
+}
+
+.a-stat {
+  border-radius: 12px;
+  padding: 14px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 80px;
+}
+
+.filter-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 14px;
+  background: white;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 6px;
+}
+
+.filter-btn {
+  padding: 8px 16px;
+  border: 1.5px solid #e2e8f0;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748b;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover {
+  border-color: #2563eb;
+  color: #2563eb;
+}
+
+.filter-btn.active {
+  background: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}
+
+/* ADMIN TICKET CARDS */
+.admin-ticket-card {
+  background: white;
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s;
+}
+
+.admin-ticket-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.atc-left {
+  flex: 1;
+}
+
+.atc-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.atc-id {
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.atc-title {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 15px;
+}
+
+.priority-tag {
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.atc-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: #94a3b8;
+  margin-bottom: 8px;
+}
+
+.atc-desc {
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+.atc-right {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 160px;
+}
+
+.control-group label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.control-group select {
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border-width: 2px;
+}
+
+.delete-btn {
+  padding: 8px;
+  background: #fef2f2;
+  color: #ef4444;
+  border: 1.5px solid #fecaca;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.delete-btn:hover {
+  background: #fee2e2;
+}
+
+.empty {
+  text-align: center;
+  padding: 48px;
+  color: #94a3b8;
+  font-size: 15px;
+}
+
+@media (max-width: 768px) {
+  .portal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .admin-ticket-card {
+    flex-direction: column;
+  }
+
+  .atc-right {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
