@@ -1,183 +1,87 @@
-# 🎓 University Help Desk & Issue Tracking System
+# University IT Help Desk & Issue Tracking System
 
-> A full-stack containerized web application built to learn and demonstrate **Docker** and **Docker Compose** in a real-world scenario.
+A full-stack web application for managing technical support tickets, built as a hands-on project to learn and demonstrate Docker containerization. Students can submit IT issues and track their status, while administrators manage and resolve tickets through a protected dashboard.
 
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
-![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
-![Nginx](https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white)
+> **Learning Project** — This project was built to learn Docker and containerization by applying it to a real-world use case rather than following a simple tutorial. The goal was to understand how multiple services work together inside containers, how Nginx acts as a reverse proxy, and how Docker Compose orchestrates a full application stack from a single command.
 
 ---
 
-## 📌 About This Project
+## What This Project Does
 
-This project was built as a **hands-on learning project for Docker and containerization**. Rather than following a simple tutorial, I built a real-world university help desk system and containerized it from scratch using Docker Compose.
-
-The application allows:
-- 👨‍🎓 **Students** to report technical issues (Wi-Fi, hardware, software, etc.)
-- 🛠️ **Administrators** to receive, prioritize, and resolve tickets
-- 📊 **Both** to track ticket status in real time
+Students submit technical support tickets with their name, student ID, issue category and priority. They can track their own ticket status at any time. Administrators access a protected dashboard to view all tickets, update their status and reassign priority levels as issues are worked through.
 
 ---
 
-## 🐳 What I Learned About Docker
+## Tech Stack
 
-This project was specifically designed to understand the following Docker concepts:
-
-### 1. Dockerfile
-Each service has its own `Dockerfile` that defines how to build that service's container image.
-
-- The **backend** Dockerfile uses `node:20-alpine` as a lightweight base image
-- The **frontend** Dockerfile uses a **multi-stage build** — first builds the React app with Node, then serves it with Nginx (production-ready, smaller final image)
-
-### 2. Docker Compose
-Instead of running 3 separate containers manually, `docker-compose.yml` orchestrates all services together with **one command**:
-
-```bash
-docker-compose up --build
-```
-
-This single command:
-- Pulls the required images
-- Builds the custom images
-- Creates a shared network between containers
-- Starts all services in the correct order
-
-### 3. Multi-Container Architecture
-The project runs **3 containers** that communicate with each other over Docker's internal network:
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                     Docker Network                       │
-│                                                          │
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐  │
-│  │  Frontend   │───▶│   Backend   │───▶│  PostgreSQL │  │
-│  │ React+Nginx │    │  Node.js +  │    │  Database   │  │
-│  │  Port 3000  │    │  Express    │    │  Port 5432  │  │
-│  └─────────────┘    │  Port 5000  │    └─────────────┘  │
-│                     └─────────────┘                      │
-└─────────────────────────────────────────────────────────┘
-```
-
-### 4. Service Dependencies
-Docker Compose `depends_on` with health checks ensures:
-- The **database starts first** and is fully ready
-- The **backend starts only after** the database is healthy
-- The **frontend starts last**
-
-This prevents connection errors on startup.
-
-### 5. Volumes (Data Persistence)
-PostgreSQL uses a **named Docker volume** (`postgres_data`) so ticket data is saved permanently — even if the container is stopped or deleted, the data survives.
-
-```yaml
-volumes:
-  postgres_data:
-```
-
-### 6. Environment Variables
-Sensitive configuration like database credentials are passed as **environment variables** in `docker-compose.yml` — keeping them out of the application code.
-
-### 7. .dockerignore
-Each service has a `.dockerignore` file to exclude `node_modules` and other unnecessary files from the Docker build context — making builds significantly faster.
-
----
-
-## 🏗️ Project Structure
-
-```
-university-helpdesk/
-├── backend/
-│   ├── src/
-│   │   ├── routes/
-│   │   │   └── tickets.js       # REST API endpoints
-│   │   ├── db.js                # PostgreSQL connection
-│   │   └── index.js             # Express server
-│   ├── Dockerfile               # Backend container definition
-│   ├── .dockerignore
-│   └── package.json
-│
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── StudentPortal.jsx    # Student ticket submission & tracking
-│   │   │   └── AdminDashboard.jsx   # Admin ticket management
-│   │   ├── App.jsx
-│   │   └── App.css
-│   ├── Dockerfile               # Multi-stage build (Node → Nginx)
-│   ├── .dockerignore
-│   └── package.json
-│
-├── docker-compose.yml           # Orchestrates all 3 containers
-├── init.sql                     # Database schema & seed data
-└── README.md
-```
-
----
-
-## ✨ Features
-
-### Student Portal
-- Submit support tickets with title, category and description
-- Choose issue category: Wi-Fi, Hardware, Software, Email, Printer
-- Set initial priority: Low, Medium, High
-- Track ticket status by name in real time
-
-### Admin Dashboard
-- View all tickets in one place
-- Search tickets by title or student name
-- Filter by status: Open, In Progress, Resolved
-- Update ticket status and priority with dropdowns
-- Delete resolved tickets
-- Live stats: total, open, in-progress, resolved
-
----
-
-
-
-## 🛠️ Tech Stack
-
-| Layer | Technology | Purpose |
-|-------|-----------|---------|
-| Frontend | React + Vite | Student & Admin UI |
-| Web Server | Nginx | Serves the React build in production |
+| Layer | Technology | Role |
+|-------|-----------|------|
+| Frontend | React + Vite | User interface |
+| Web Server | Nginx | Serves the React app and acts as reverse proxy |
 | Backend | Node.js + Express | REST API |
-| Database | PostgreSQL | Persistent ticket storage |
+| Database | PostgreSQL | Persistent data storage |
 | Containerization | Docker + Docker Compose | Multi-container orchestration |
 
 ---
 
-## 📡 API Endpoints
+## Docker Concepts Applied
+
+**Dockerfile** — Each service has its own Dockerfile defining how its container image is built. The frontend uses a multi-stage build: the first stage compiles the React app using Node.js, and the second stage copies only the compiled output into a clean Nginx image. The final image contains no source code or development dependencies.
+
+**Docker Compose** — All three services are defined in a single `docker-compose.yml` file. One command starts the entire application. Docker Compose handles building the images, creating a shared network between containers, and starting services in the correct order.
+
+**Nginx Reverse Proxy** — Nginx serves two purposes. It delivers the React frontend as static files, and it forwards all `/api/` requests internally to the Node.js backend. The browser communicates with one address on port 80. The backend is never exposed directly, which mirrors how production web applications are structured.
+
+**Container Networking** — Docker Compose creates a private internal network. Containers communicate with each other using container names as hostnames rather than IP addresses. Nothing inside the network is accessible from outside unless explicitly mapped to a port.
+
+**Named Volumes** — PostgreSQL uses a named Docker volume so ticket data persists across container restarts and rebuilds. The data is stored on the host machine, not inside the container.
+
+**Health Checks** — The backend is configured to wait until the database passes a readiness check before starting. This prevents connection errors caused by the backend trying to connect before PostgreSQL is fully ready.
+
+**.dockerignore** — Both services exclude `node_modules` and build output from the Docker build context, keeping builds fast and images clean.
+
+**Environment Variables** — Database credentials and configuration are passed through environment variables rather than hardcoded in source files.
+
+---
+
+## Project Structure
+
+```
+helpdesk-system/
+├── backend/              # Node.js REST API
+├── frontend/             # React app, Nginx config, multi-stage Dockerfile
+├── docker-compose.yml    # Orchestrates all three services
+└── init.sql              # Database schema and seed data
+```
+
+---
+
+## API Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | `/api/tickets` | Get all tickets |
+| GET | `/api/tickets` | Retrieve all tickets |
 | POST | `/api/tickets` | Submit a new ticket |
-| PATCH | `/api/tickets/:id` | Update ticket status or priority |
+| PATCH | `/api/tickets/:id` | Update status or priority |
 | DELETE | `/api/tickets/:id` | Delete a ticket |
 
 ---
 
-## 🎯 Key Docker Concepts Demonstrated
+## Container Architecture
 
-| Concept | Where Used |
-|---------|-----------|
-| `Dockerfile` | `backend/Dockerfile`, `frontend/Dockerfile` |
-| Multi-stage build | `frontend/Dockerfile` (Node → Nginx) |
-| `docker-compose.yml` | Root — orchestrates all services |
-| Named volumes | `postgres_data` for DB persistence |
-| Health checks | DB readiness check before backend starts |
-| Container networking | Services communicate by container name |
-| Environment variables | DB credentials passed at runtime |
-| `.dockerignore` | Excludes node_modules from build context |
-
----
-
-## 👨‍💻 Author
-
-**Dinith** — Built as a learning project to understand Docker containerization through a practical, real-world application.
+```
+Browser → http://localhost
+               ↓
+          Nginx (port 80)
+          ↓            ↓
+     /api/*          /*
+         ↓            ↓
+     Backend      React App
+    (Node.js)   (static files)
+         ↓
+    PostgreSQL
+```
 
 ---
 
-> ⭐ If this project helped you learn Docker, please give it a star!
+> This is a personal portfolio project built for learning purposes. Not affiliated with or endorsed by the University of Peradeniya.
