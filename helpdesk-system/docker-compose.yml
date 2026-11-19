@@ -39,7 +39,7 @@ services:
     build: ./frontend
     container_name: helpdesk-frontend
     ports:
-      - "3000:80"
+      - "80:80"
     depends_on:
       - backend
     restart: unless-stopped
