@@ -16,12 +16,12 @@ router.get('/', async (req, res) => {
 
 // Create a ticket
 router.post('/', async (req, res) => {
-    const { title, description, priority, submitted_by, category } = req.body;
+    const { title, description, priority, submitted_by, student_id, category } = req.body;
     try {
         const result = await pool.query(
-            `INSERT INTO tickets (title, description, priority, submitted_by, category)
-       VALUES ($1, $2, $3, $4, $5) RETURNING *`,
-            [title, description, priority, submitted_by, category]
+            `INSERT INTO tickets (title, description, priority, submitted_by, student_id, category)
+       VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+            [title, description, priority, submitted_by, student_id, category]
         );
         res.status(201).json(result.rows[0]);
     } catch (err) {
