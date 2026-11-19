@@ -46,23 +46,6 @@ function StudentPortal({ tickets, onSubmit }) {
                 <div className="hero-content">
                     <h1>IT Support & Help Desk</h1>
                     <p>University of Peradeniya — Excellence Through Learning</p>
-                    <div className="hero-stats">
-                        <div className="hero-stat">
-                            <span>{tickets.length}</span><label>Total Tickets</label>
-                        </div>
-                        <div className="hero-stat">
-                            <span>{tickets.filter(t => t.status === 'open').length}</span>
-                            <label>Open</label>
-                        </div>
-                        <div className="hero-stat">
-                            <span>{tickets.filter(t => t.status === 'in_progress').length}</span>
-                            <label>In Progress</label>
-                        </div>
-                        <div className="hero-stat">
-                            <span>{tickets.filter(t => t.status === 'resolved').length}</span>
-                            <label>Resolved</label>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -70,11 +53,11 @@ function StudentPortal({ tickets, onSubmit }) {
             <div className="student-tabs">
                 <button className={activeTab === 'submit' ? 'stab active' : 'stab'}
                     onClick={() => setActiveTab('submit')}>
-                    📝 Submit a Ticket
+                    Submit a Ticket
                 </button>
                 <button className={activeTab === 'track' ? 'stab active' : 'stab'}
                     onClick={() => setActiveTab('track')}>
-                    🔍 Track My Tickets
+                    Track My Tickets
                 </button>
             </div>
 
@@ -176,8 +159,8 @@ function StudentPortal({ tickets, onSubmit }) {
                                         </span>
                                     </div>
                                     <div className="track-meta">
-                                        <span>📂 {ticket.category}</span>
-                                        <span>🕐 {new Date(ticket.created_at).toLocaleDateString('en-GB')}</span>
+                                        <span> {ticket.category}</span>
+                                        <span> {new Date(ticket.created_at).toLocaleDateString('en-GB')}</span>
                                         <span style={{
                                             color: ticket.priority === 'high' ? '#dc2626' :
                                                 ticket.priority === 'medium' ? '#d97706' : '#16a34a', fontWeight: 600

@@ -64,13 +64,13 @@ function App() {
             className={view === 'student' ? 'nav-btn active' : 'nav-btn'}
             onClick={() => setView('student')}
           >
-            👨‍🎓 Student Support
+            Student Support
           </button>
           <button
             className={view === 'admin' ? 'nav-btn active' : 'nav-btn'}
             onClick={() => setView('admin')}
           >
-            🔐 Admin
+            Admin
           </button>
           {adminLoggedIn && (
             <button className="nav-btn logout-btn" onClick={handleLogout}>

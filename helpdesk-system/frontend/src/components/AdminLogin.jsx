@@ -11,7 +11,7 @@ function AdminLogin({ onLogin, error }) {
             <div className="login-overlay" />
             <div className="login-box">
                 <div className="login-header">
-                    <div className="login-icon">🔐</div>
+                    <div className="login-icon"></div>
                     <h2>Admin Portal</h2>
                     <p>University of Peradeniya IT Help Desk</p>
                 </div>
@@ -30,7 +30,7 @@ function AdminLogin({ onLogin, error }) {
                     <button type="submit" className="login-btn">Sign In →</button>
                 </form>
                 <p className="login-note">
-                    🔒 This portal is restricted to IT administrators only.<br />
+                    This portal is restricted to IT administrators only.<br />
                     Students please use the Student Support tab.
                 </p>
             </div>

@@ -40,7 +40,7 @@ function AdminDashboard({ tickets, onUpdate, onDelete }) {
             <div className="admin-filters">
                 <input className="admin-search" value={search}
                     onChange={e => setSearch(e.target.value)}
-                    placeholder="🔍  Search by title, student name or ID..." />
+                    placeholder=" Search by title, student name or ID..." />
                 <div className="filter-group">
                     {['all', 'open', 'in_progress', 'resolved'].map(f => (
                         <button key={f}
@@ -54,7 +54,7 @@ function AdminDashboard({ tickets, onUpdate, onDelete }) {
 
             <div className="ticket-list">
                 {filtered.length === 0 && (
-                    <div className="empty-state">📭 No tickets found.</div>
+                    <div className="empty-state"> No tickets found.</div>
                 )}
                 {filtered.map(ticket => (
                     <div key={ticket.id} className="admin-card">
@@ -68,10 +68,10 @@ function AdminDashboard({ tickets, onUpdate, onDelete }) {
                                 </span>
                             </div>
                             <div className="ac-meta">
-                                <span>👤 {ticket.submitted_by}</span>
-                                <span>🎓 {ticket.student_id || 'N/A'}</span>
-                                <span>📂 {ticket.category || 'General'}</span>
-                                <span>🕐 {new Date(ticket.created_at).toLocaleDateString('en-GB')}</span>
+                                <span> {ticket.submitted_by}</span>
+                                <span> {ticket.student_id || 'N/A'}</span>
+                                <span> {ticket.category || 'General'}</span>
+                                <span> {new Date(ticket.created_at).toLocaleDateString('en-GB')}</span>
                             </div>
                             {ticket.description && (
                                 <p className="ac-desc">{ticket.description}</p>
@@ -99,7 +99,7 @@ function AdminDashboard({ tickets, onUpdate, onDelete }) {
                                 </select>
                             </div>
                             <button className="del-btn" onClick={() => onDelete(ticket.id)}>
-                                🗑️ Delete
+                                Delete
                             </button>
                         </div>
                     </div>
